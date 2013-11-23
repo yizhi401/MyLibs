@@ -1,4 +1,8 @@
-package com.bros.xienan.peter.mylibs;
+package com.bros.xienan.peter.mylibs.ui;
+
+import com.bros.xienan.peter.mylibs.R;
+import com.bros.xienan.peter.mylibs.R.layout;
+import com.bros.xienan.peter.mylibs.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
