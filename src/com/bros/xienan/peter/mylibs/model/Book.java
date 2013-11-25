@@ -1,4 +1,4 @@
-package com.bros.xienan.peter.mylibs.logic.global.db;
+package com.bros.xienan.peter.mylibs.model;
 
 import java.util.List;
 
