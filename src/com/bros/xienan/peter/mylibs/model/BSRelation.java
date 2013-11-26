@@ -6,6 +6,9 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 @Table(tableName = "table_book_shelf_relationship")
 public class BSRelation {
 
+	@Column(isPrimaryKey = true)
+	private Integer _id;
+	
 	@Column
 	private Integer bookid;
 	

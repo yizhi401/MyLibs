@@ -8,6 +8,9 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 @Table(tableName = "table_contents")
 public class Content {
 
+	@Column(isPrimaryKey = true)
+	private Integer _id;
+	
 	@Column
 	private Integer contentid;
 	

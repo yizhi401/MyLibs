@@ -6,6 +6,9 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 @Table(tableName = "table_shelfs")
 public class Shelf {
 	
+	@Column(isPrimaryKey = true)
+	private Integer _id;
+	
 	@Column
 	private Integer shelfid;
 	

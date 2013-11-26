@@ -1,21 +1,19 @@
 package com.bros.xienan.peter.mylibs.utils.db;
 
+import java.lang.reflect.Field;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import com.bros.xienan.peter.mylibs.model.BSRelation;
 import com.bros.xienan.peter.mylibs.model.Book;
 import com.bros.xienan.peter.mylibs.model.Content;
 import com.bros.xienan.peter.mylibs.model.Keyword;
 import com.bros.xienan.peter.mylibs.model.Shelf;
+import com.bros.xienan.peter.mylibs.utils.annotations.Column;
+import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 import com.bros.xienan.peter.mylibs.utils.db.MyLibsDBContract.BSRelationTable;
-import com.bros.xienan.peter.mylibs.utils.db.MyLibsDBContract.BookTable;
-import com.bros.xienan.peter.mylibs.utils.db.MyLibsDBContract.ContentTable;
-import com.bros.xienan.peter.mylibs.utils.db.MyLibsDBContract.KeywordsTable;
-import com.bros.xienan.peter.mylibs.utils.db.MyLibsDBContract.ShelfTable;
-
-import android.content.Context;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * 数据库管理类，程序所有数据存于此。要添加一个新表或者删除一个表， 除了更新相应的实体类，MyLibsDBContract.java中的类，
@@ -23,8 +21,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  * 该类仅提供以下功能： 1. 建立一个数据库（不需要手动调用） 2. 建立表或者删除表（不需要手动调用）
  * 
- * 使用方法： 1. 获取该类的实例，通过getInstance来获取
- * 2. 调用getWritableDatabase、或者getReadableDatabase来获取db实例
+ * 使用方法： 1. 获取该类的实例，通过getInstance来获取 2.
+ * 调用getWritableDatabase、或者getReadableDatabase来获取db实例
  * 
  * @author yizhi401
  * 
@@ -36,17 +34,19 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 	public static final String DATABASE_NAME = "MyLibsDatabase.db";
 
 	public static final int DATABASE_VERSION = 1;
-	
-	//以下三个变量均为构建表时候sql语句所用
+
+	// 以下三个变量均为构建表时候sql语句所用
 	private static final String TEXT_TYPE = " TEXT";
 
 	private static final String INTEGER_TYPE = " INTEGER";
 
 	private static final String COMMA_SEP = ",";
 	
+	private static final String PRIMARY_KEY = "INTEGER PRIMARY KEY,";
 
 	/**
 	 * 只提供单例模式，因为全局只需要一个db对象
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -68,12 +68,12 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		//在此建表
-		createTable(db,Book.class);
-		createTable(db,Shelf.class);
-		createTable(db,Content.class);
-		createTable(db,BSRelation.class);
-		createTable(db,Keyword.class);
+		// 在此建表
+		createTable(db, Book.class);
+		createTable(db, Shelf.class);
+		createTable(db, Content.class);
+		createTable(db, BSRelation.class);
+		createTable(db, Keyword.class);
 	}
 
 	@Override
@@ -81,27 +81,70 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 
 		// TODO我暂时还想不到要有什么更新整个数据库的情况
 	}
-	
-	
+
+	public static final String SQL_CREATE_BSRELATIONTABLE = "CREATE TABLE "
+			+ BSRelationTable.TABLE_NAME + " (" + BSRelationTable._ID
+			+ "INTEGER PRIMARY　KEY," + BSRelationTable.COLUMN_BOOK + TEXT_TYPE
+			+ COMMA_SEP + BSRelationTable.COLUMN_SHELF + TEXT_TYPE + COMMA_SEP
+			+ " )";
+
+	public static final String SQL_DELETE_BSRELATIONABLE = "DROP TABLE IF EXISTS"
+			+ BSRelationTable.TABLE_NAME;
+
 	/**
 	 * 根据所提供的实体类在数据库中建表，如果db中存在此表，直接返回
+	 * 
 	 * @param <T>
-	 * @param db 要建表的数据库
-	 * @param clazz 实体类
+	 * @param db
+	 *            要建表的数据库
+	 * @param clazz
+	 *            实体类
 	 */
 	public <T> void createTable(SQLiteDatabase db,Class<T> clazz){
 		
-	}
-	
-	/**
-	 * 根据所提供的实体类删除相应的表，如果db无此表，不进行操作
-	 * @param <T>
-	 * @param db 数据库
-	 * @param clazz 实体类
-	 */
-	public <T> void deleteTable(SQLiteDatabase db, Class<T> clazz){
+		StringBuffer createTableSQL = new StringBuffer("CREATE TABLE ");
+		Table tableName = clazz.getAnnotation(Table.class);
+		if (tableName != null)
+		{
+			createTableSQL.append(tableName.tableName());
+			createTableSQL.append(" (");
+			
+			Field[] fields = clazz.getDeclaredFields();
+			
+			for (Field field: fields)
+			{
+				if (field.isAnnotationPresent(Column.class))
+				{
+					if (field.getAnnotation(Column.class).isPrimaryKey())
+					{
+						createTableSQL.append(field.getName());
+						createTableSQL.append(PRIMARY_KEY);
+					
+					} else{
+						createTableSQL.append(field.getName());
+						createTableSQL.append(TEXT_TYPE);
+						createTableSQL.append(COMMA_SEP);
+					}
+				
+				}
+			}
+			
+			createTableSQL.append(" )");
+		}
 		
 	}
-	
+
+	/**
+	 * 根据所提供的实体类删除相应的表，如果db无此表，不进行操作
+	 * 
+	 * @param <T>
+	 * @param db
+	 *            数据库
+	 * @param clazz
+	 *            实体类
+	 */
+	public <T> void deleteTable(SQLiteDatabase db, Class<T> clazz) {
+
+	}
 
 }
