@@ -6,6 +6,9 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 @Table(tableName = "table_keywords")
 public class Keyword {
 
+	@Column(isPrimaryKey = true)
+	private Integer _id;
+	
 	@Column
 	private String keyword;
 	
