@@ -7,7 +7,7 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Shelf {
 	
 	@Column(isPrimaryKey = true)
-	private Long _id;
+	private Long _ID;
 	
 	@Column
 	private Long shelfid;

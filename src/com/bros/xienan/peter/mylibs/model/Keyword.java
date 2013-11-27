@@ -7,7 +7,7 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Keyword {
 
 	@Column(isPrimaryKey = true)
-	private Long _id;
+	private Long _ID;
 	
 	@Column
 	private String keyword;

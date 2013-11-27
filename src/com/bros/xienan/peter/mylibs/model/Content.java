@@ -9,7 +9,7 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Content {
 
 	@Column(isPrimaryKey = true)
-	private Long _id;
+	private Long _ID;
 	
 	@Column
 	private Long contentid;
