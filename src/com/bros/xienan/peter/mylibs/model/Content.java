@@ -9,10 +9,10 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Content {
 
 	@Column(isPrimaryKey = true)
-	private Integer _id;
+	private Long _id;
 	
 	@Column
-	private Integer contentid;
+	private Long contentid;
 	
 	/**
 	 * 关键词，不止一个，存入List
@@ -64,11 +64,11 @@ public class Content {
 	@Column
 	private Integer bookid;
 
-	public Integer getContentid() {
+	public Long getContentid() {
 		return contentid;
 	}
 
-	public void setContentid(Integer contentid) {
+	public void setContentid(Long contentid) {
 		this.contentid = contentid;
 	}
 

@@ -82,14 +82,6 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 		// TODO我暂时还想不到要有什么更新整个数据库的情况
 	}
 
-	public static final String SQL_CREATE_BSRELATIONTABLE = "CREATE TABLE "
-			+ BSRelationTable.TABLE_NAME + " (" + BSRelationTable._ID
-			+ "INTEGER PRIMARY　KEY," + BSRelationTable.COLUMN_BOOK + TEXT_TYPE
-			+ COMMA_SEP + BSRelationTable.COLUMN_SHELF + TEXT_TYPE + COMMA_SEP
-			+ " )";
-
-	public static final String SQL_DELETE_BSRELATIONABLE = "DROP TABLE IF EXISTS"
-			+ BSRelationTable.TABLE_NAME;
 
 	/**
 	 * 根据所提供的实体类在数据库中建表，如果db中存在此表，直接返回
@@ -103,10 +95,10 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 	public <T> void createTable(SQLiteDatabase db,Class<T> clazz){
 		
 		StringBuffer createTableSQL = new StringBuffer("CREATE TABLE ");
-		Table tableName = clazz.getAnnotation(Table.class);
-		if (tableName != null)
+		Table table = clazz.getAnnotation(Table.class);
+		if (table != null)
 		{
-			createTableSQL.append(tableName.tableName());
+			createTableSQL.append(table.tableName());
 			createTableSQL.append(" (");
 			
 			Field[] fields = clazz.getDeclaredFields();
@@ -130,6 +122,7 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 			}
 			
 			createTableSQL.append(" )");
+			db.execSQL(createTableSQL.toString());
 		}
 		
 	}
@@ -144,7 +137,14 @@ public class MyLibsDBHelper extends SQLiteOpenHelper {
 	 *            实体类
 	 */
 	public <T> void deleteTable(SQLiteDatabase db, Class<T> clazz) {
-
+		StringBuffer deleteTableSQL = new StringBuffer("DROP TABLE IF EXSITS ");
+		Table table = clazz.getAnnotation(Table.class);
+		
+		if (table != null)
+		{
+			deleteTableSQL.append(table.tableName());
+			db.execSQL(deleteTableSQL.toString());
+		}
 	}
 
 }

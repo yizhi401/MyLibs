@@ -7,27 +7,27 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class BSRelation {
 
 	@Column(isPrimaryKey = true)
-	private Integer _id;
+	private Long _id;
 	
 	@Column
-	private Integer bookid;
+	private Long bookid;
 	
 	@Column
-	private Integer shelfid;
+	private Long shelfid;
 
-	public Integer getBookid() {
+	public Long getBookid() {
 		return bookid;
 	}
 
-	public void setBookid(Integer bookid) {
+	public void setBookid(Long bookid) {
 		this.bookid = bookid;
 	}
 
-	public Integer getShelfid() {
+	public Long getShelfid() {
 		return shelfid;
 	}
 
-	public void setShelfid(Integer shelfid) {
+	public void setShelfid(Long shelfid) {
 		this.shelfid = shelfid;
 	}
 	

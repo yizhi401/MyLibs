@@ -7,19 +7,19 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Shelf {
 	
 	@Column(isPrimaryKey = true)
-	private Integer _id;
+	private Long _id;
 	
 	@Column
-	private Integer shelfid;
+	private Long shelfid;
 	
 	@Column
 	private String name;
 
-	public Integer getShelfid() {
+	public Long getShelfid() {
 		return shelfid;
 	}
 
-	public void setShelfid(Integer shelfid) {
+	public void setShelfid(Long shelfid) {
 		this.shelfid = shelfid;
 	}
 

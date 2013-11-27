@@ -7,16 +7,16 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Keyword {
 
 	@Column(isPrimaryKey = true)
-	private Integer _id;
+	private Long _id;
 	
 	@Column
 	private String keyword;
 	
 	@Column
-	private Integer bookid;
+	private Long bookid;
 	
 	@Column
-	private Integer contentid;
+	private Long contentid;
 
 	public String getKeyword() {
 		return keyword;
@@ -26,19 +26,19 @@ public class Keyword {
 		this.keyword = keyword;
 	}
 
-	public Integer getBookid() {
+	public Long getBookid() {
 		return bookid;
 	}
 
-	public void setBookid(Integer bookid) {
+	public void setBookid(Long bookid) {
 		this.bookid = bookid;
 	}
 
-	public Integer getContentid() {
+	public Long getContentid() {
 		return contentid;
 	}
 
-	public void setContentid(Integer contentid) {
+	public void setContentid(Long contentid) {
 		this.contentid = contentid;
 	}
 	

@@ -9,10 +9,10 @@ import com.bros.xienan.peter.mylibs.utils.annotations.Table;
 public class Book {
 
 	@Column(isPrimaryKey = true)
-	private Integer _id;
+	private Long _id;
 	
 	@Column
-	private Integer bookid;
+	private Long bookid;
 	
 	@Column
 	private String name;
@@ -24,7 +24,7 @@ public class Book {
 	 * 书籍大小，kb为单位
 	 */
 	@Column	
-	private Integer size;
+	private Long size;
 	
 	/**
 	 * 构建时间，如果从网上下载的则为下载时间
@@ -57,11 +57,11 @@ public class Book {
 	 */
 	private List<Content> content;
 
-	public Integer getBookid() {
+	public Long getBookid() {
 		return bookid;
 	}
 
-	public void setBookid(Integer bookid) {
+	public void setBookid(Long bookid) {
 		this.bookid = bookid;
 	}
 
@@ -81,11 +81,11 @@ public class Book {
 		this.author = author;
 	}
 
-	public Integer getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 
