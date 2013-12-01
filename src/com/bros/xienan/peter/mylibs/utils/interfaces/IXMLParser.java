@@ -7,8 +7,8 @@ import java.util.List;
  * @author yizhi401
  *
  */
-public interface IXMLParser {
+public interface IXmlParser {
 	
-	public <T> List<T> getEntityFromXML(String xmlPath, Class<T> clazz); 
+	public List getEntityFromXML(String xmlPath); 
 
 }
